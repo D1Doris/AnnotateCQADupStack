@@ -166,7 +166,8 @@ Doris Hoogeveen
         ->setFrom(array('your@gmail.com' => 'Your Name'))
         ->setTo(array($to))
         ->setBody($body)
-	->addPart($htmlbody, 'text/html');
+	->addPart($htmlbody, 'text/html')
+	->setCharset('ISO-8859-1'); // Should fix this and make it utf-8
 
     $result = $mailer->send($message);
     if($result){
