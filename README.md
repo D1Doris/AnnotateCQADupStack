@@ -39,7 +39,7 @@ For licensing information please see the LICENCE file.
 	- se-annotate/php/present_transitives.php<br />
 	- se-annotate/php/reset_password.php<br />
 	- se-annotate/php/verify.php<br />
-   One day I'll make a configuration file for this, and clean up the repeated code.<br />
+One day I'll make a configuration file for this, and clean up the repeated code.<br />
 4. Download CQADupStack (http://nlp.cis.unimelb.edu.au/resources/cqadupstack/) and make sure the subforum zipfiles end up in a directory called 'cqadupstack'.<br />
 5. Prepare the question pairs you would like to be annotated. For this we need one comma-separated csv file per subforum, located in se-annotate/csv/subforum_annotation_candidates.csv. These files should contain question ids in column A and B, where each row is a question pair.<br />
 6. Change se-annotate/favicon.ico to your own favicon.<br />
@@ -47,7 +47,7 @@ For licensing information please see the LICENCE file.
 	- se-annotate/index.html<br />
 	- se-annotate/new_user.html<br />
 	- se-annotate/php/present_transitives.php<br />
-   I suggest using http://www.closetnoc.org/mungemaster/mungemaster.pl to obfuscate your email address.<br />
+I suggest using http://www.closetnoc.org/mungemaster/mungemaster.pl to obfuscate your email address.<br />
 8. Change se-annotate/php/analyticstracking.php to your own analyticstracking.php script, or adjust the USERID (see https://www.google.com/analytics/),
    or delete it and the following line:<br />
    <?php include_once("./analyticstracking.php") ?> from se-annotate/php/present_transitives.php<br />
@@ -57,7 +57,7 @@ For licensing information please see the LICENCE file.
 	- Adjust the swiftmailer path.<br />
 	- Change the server name in the email body.<br />
 	- Actually change the rest of the email body too, to suit your own setup.<br />
-    Then do the same in se-annotate/php/email_for_forgotten_username.php and se-annotate/php/email_for_reset_password.php<br />
+Then do the same in se-annotate/php/email_for_forgotten_username.php and se-annotate/php/email_for_reset_password.php<br />
 10. Run createdatabases.cgi and then insertrecords.cgi to fill the database with the pairs to be annotated.<br />
 11. Test in browser: servername/path/to/se-annotate/<br />
 12. Feel free to contact me if you run into problems or if you have suggestions for improvements: doris dot hoogeveen it's a gmail address.
