@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- Written by Doris Hoogeveen March 2016 -->
+<!-- Downloaded from https://github.com/D1Doris/AnnotateCQADupStack -->
+<html>
+<head>
+<link href="./se-annotate.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset="UTF-8">
+
+<title>Improving StackExchange - Login</title>
+</head>
+
+<body>
+<div id="contentsides">
+<div id="content">
+<center><h3>Welcome to the StackExchange Annotation Project of the University of Melbourne!</h3>
+<b>Please log in to start judging potential duplicates.</b><br /><br />
+<form method="POST" action="./php/login.php">
+<table class="light">
+	<tr>
+		<td class="right">
+		Username: </td>
+		<td><input type="text" name="username" class="inputfield" />
+		</td>
+	</tr>
+	<tr>
+                <td class="right">
+                Email address: </td>
+                <td><input type="email" name="email" class="inputfield" />
+                </td>
+        </tr>
+	<tr>
+		<td class="right">
+		Password: </td>
+		<td><input type="password" name="password" class="inputfield" />
+		</td>
+	</tr>
+	<tr>
+		<td class="right">
+                StackExchange subforum: </td>
+		<td><select id="subforum" name="subforum">
+  			<option value="android">Android</option>
+ 			<option value="english">English</option>
+  			<option value="gaming">Gaming</option>
+  			<option value="gis">Gis</option>
+                        <option value="mathematica">Mathematica</option>
+                        <option value="physics">Physics</option>
+                        <option value="programmers">Programmers</option>
+                        <option value="stats">Stats</option>
+                        <option value="tex">Tex</option>
+                        <option value="unix">Unix</option>
+                        <option value="webmasters">Webmasters</option>
+                        <option value="wordpress">Wordpress</option>
+		    </select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><center>
+		<input type="submit" value="Login" name="submit" class="button" />
+		</center>
+		</td>
+	</tr>
+</table>
+</form>
+<small>If you forgot your password, please <a href="./reset_password.html">click here</a> to reset it.</small><br />
+<small>If you forgot your username, please <a href="./forgot_username.html">click here</a> to retrieve it.</small><br /><br />
+<b>No username yet? Please register <a href="./new_user.html">here</a>.</b><br /><br />
+
+<small>If you have any problems with the site, <script language="JavaScript"><!-- 
+RlvihaTOxRUREsdaLpxVD="&#100;&#111;&#114;i&#115;&#46;&#104;o&#111;&#103;&#101;v&#101;&#101;&#110;"
+wJANRfeXO="&#64;"
+XThhXnmjcnZwnxjsGcxubpuWiwxEg="&#103;&#109;&#97;&#105;l&#46;&#99;&#111;&#109;"
+wwEFCmVBlxobUjiMITZqTJHYNExE="&#101;&#109;&#97;&#105;l&#32;&#68;&#111;&#114;i&#115;&#32;&#72;&#111;o&#103;&#101;&#118;&#101;e&#110;"
+fmPjDTufnRIK="&#101;&#109;&#97;&#105;l&#32;&#68;&#111;&#114;i&#115;&#32;&#72;&#111;o&#103;&#101;&#118;&#101;e&#110;"
+document.write("<a href='mailto:"+RlvihaTOxRUREsdaLpxVD+""+wJANRfeXO+""+XThhXnmjcnZwnxjsGcxubpuWiwxEg+"' title='"+fmPjDTufnRIK+"'>"+wwEFCmVBlxobUjiMITZqTJHYNExE+"<\/a>")
+// --></script>.</small>
+
+</center>
+</div>
+</div>
+
+</body>
+</html>

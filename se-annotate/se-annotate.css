@@ -1,0 +1,90 @@
+/* Written by Doris Hoogeveen March 2016
+Downloaded from https://github.com/D1Doris/AnnotateCQADupStack */
+
+html, body{
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	background: #EDF1F2; /* light gray */
+	height: 100%;
+	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; /* taken from SE */
+}
+
+
+#nav{
+	width: 130px;
+        margin-left: auto;
+        margin-right: 2px;
+        margin-top: 0px;
+        padding: 5px;
+        background-color: #D1E8F0; /* Blue (light) */
+        border: 2px #000000 solid;
+	text-align: center;
+}
+
+#contentsides{
+	margin-top: 80px;
+	background-color: #AFDEED; /* Blue ("dark") */
+}
+
+#content{
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 80px;
+	padding: 15px;
+	background-color: #AFDEED; /* Blue ("dark") */
+	/* border: 2px #000000 solid; */
+}
+
+#content table.light{
+	background-color:#D1E8F0; /* Blue (light) */
+	border: 2px solid #000000;
+}
+
+#content tr.light{
+	background: #D1E8F0;
+        color: #1E4957;
+}
+
+#content tr.dark{
+	background: #AFDEED;
+        color: #1E4957;
+        border: 0;
+}
+
+#content td.post{
+	border: 2px solid #000000; 
+	padding: 10px;
+}
+
+#content td.post pre{
+	word-wrap: normal;
+	overflow: auto;
+	background-color: #eee;
+	font-size: 13px;
+	padding: 5px;
+	margin-bottom: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	max-height: none;
+	width: auto;
+	max-width: 650px; /* ugly, but this is also SE's own limit. */
+	font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+}
+
+#content td.right{
+	text-align:right;
+}
+
+#content input.button{
+	color: #000000;
+        border-color: #bfbfbf;
+        border-style: outset;
+}
+
+#content input.inputfield{
+	background: #EDF1F2;
+        color: #1E4957;
+        border-color: #000000;
+}
