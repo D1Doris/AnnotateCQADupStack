@@ -26,38 +26,51 @@ For licensing information please see the LICENCE file.
 
 === HOW TO SET UP THE ANNOTATION SYSTEM ===
 
-1. Install PHP and MySQL on your server.<br />
-2. Install swiftmailer (http://swiftmailer.org/)<br />
-3. Set the right user and password for the database in the following files:<br />
-   	- createdatabases.cgi<br />
-	- insertrecords.cgi<br />
-	- se-annotate/php/catch_answer.php<br />
-	- se-annotate/php/createuser.php<br />
-	- se-annotate/php/email_for_forgotten_username.php<br />
-	- se-annotate/php/email_for_reset_password.php<br />
-	- se-annotate/php/login.php<br />
-	- se-annotate/php/present_transitives.php<br />
-	- se-annotate/php/reset_password.php<br />
-	- se-annotate/php/verify.php<br />
-One day I'll make a configuration file for this, and clean up the repeated code.<br />
-4. Download CQADupStack (http://nlp.cis.unimelb.edu.au/resources/cqadupstack/) and make sure the subforum zipfiles end up in a directory called 'cqadupstack'.<br />
-5. Prepare the question pairs you would like to be annotated. For this we need one comma-separated csv file per subforum, located in se-annotate/csv/subforum_annotation_candidates.csv. These files should contain question ids in column A and B, where each row is a question pair.<br />
-6. Change se-annotate/favicon.ico to your own favicon.<br />
-7. Add your own email address as contact for problems at the bottom of the following pages:<br />
-	- se-annotate/index.html<br />
-	- se-annotate/new_user.html<br />
-	- se-annotate/php/present_transitives.php<br />
-I suggest using http://www.closetnoc.org/mungemaster/mungemaster.pl to obfuscate your email address.<br />
-8. Change se-annotate/php/analyticstracking.php to your own analyticstracking.php script, or adjust the USERID (see https://www.google.com/analytics/),
-   or delete it and the following line:<br />
-   <?php include_once("./analyticstracking.php") ?> from se-annotate/php/present_transitives.php<br />
-   You can also add it to other pages you would like to track, like the login page.<br />
-9. In se-annotate/php/createuser.php, in the function send_email():<br />
-	- Insert your email details (in two places). It has to be a gmail address.<br />
-	- Adjust the swiftmailer path.<br />
-	- Change the server name in the email body.<br />
-	- Actually change the rest of the email body too, to suit your own setup.<br />
-Then do the same in se-annotate/php/email_for_forgotten_username.php and se-annotate/php/email_for_reset_password.php<br />
-10. Run createdatabases.cgi and then insertrecords.cgi to fill the database with the pairs to be annotated.<br />
-11. Test in browser: servername/path/to/se-annotate/<br />
+1. Install PHP and MySQL on your server.
+
+2. Install swiftmailer (http://swiftmailer.org/)
+
+3. Set the right user and password for the database in the following files:
+    * createdatabases.cgi
+    * insertrecords.cgi
+    * se-annotate/php/catch_answer.php
+    * se-annotate/php/createuser.php
+    * se-annotate/php/email_for_forgotten_username.php
+    * se-annotate/php/email_for_reset_password.php
+    * se-annotate/php/login.php
+    * se-annotate/php/present_transitives.php
+    * se-annotate/php/reset_password.php
+    * se-annotate/php/verify.php
+
+    One day I'll make a configuration file for this, and clean up the repeated code.
+
+4. Download CQADupStack (http://nlp.cis.unimelb.edu.au/resources/cqadupstack/) and make sure the subforum zipfiles end up in a directory called 'cqadupstack'.
+
+5. Prepare the question pairs you would like to be annotated. For this we need one comma-separated csv file per subforum, located in se-annotate/csv/subforum_annotation_candidates.csv. These files should contain question ids in column A and B, where each row is a question pair.
+
+6. Change se-annotate/favicon.ico to your own favicon.
+
+7. Add your own email address as contact for problems at the bottom of the following pages:
+    * se-annotate/index.html
+    * se-annotate/new_user.html
+    * se-annotate/php/present_transitives.php
+
+    I suggest using http://www.closetnoc.org/mungemaster/mungemaster.pl to obfuscate your email address.
+
+8. Change se-annotate/php/analyticstracking.php to your own analyticstracking.php script, or adjust the USERID (see https://www.google.com/analytics/), or delete it and the following line:<br />
+<?php include_once("./analyticstracking.php") ?> from se-annotate/php/present_transitives.php<br />
+You can also add it to other pages you would like to track, like the login page.<br />
+
+9. In se-annotate/php/createuser.php, in the function send_email():
+    * Insert your email details (in two places). It has to be a gmail address.
+    * Adjust the swiftmailer path.
+    * Change the server name in the email body.
+    * Actually change the rest of the email body too, to suit your own setup.
+
+    Then do the same in se-annotate/php/email_for_forgotten_username.php and se-annotate/php/email_for_reset_password.php
+
+10. Run createdatabases.cgi and then insertrecords.cgi to fill the database with the pairs to be annotated.
+
+11. Test in browser: servername/path/to/se-annotate/
+
 12. Feel free to contact me if you run into problems or if you have suggestions for improvements: doris dot hoogeveen it's a gmail address.
