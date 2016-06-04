@@ -8,4 +8,3 @@
   ga('send', 'pageview');
 
 </script>
-<!-- Change USERID to your own Google Analytics user ID -->

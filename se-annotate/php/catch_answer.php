@@ -1,9 +1,5 @@
 <?php 
 
-// Written by Doris Hoogeveen March 2016
-// Downloaded from https://github.com/D1Doris/AnnotateCQADupStack
-
-$username=$_COOKIE['se_username'];
 $userid=$_COOKIE['se_userid'];
 $subforum=$_COOKIE['subforum'];
 $ingelogd=$_COOKIE['ingelogd'];
@@ -20,17 +16,19 @@ if($ingelogd != 'ja'){
 
     // Find out which button was clicked
     if (isset($_POST['dup'])) {
-        $sql = "Update se_".$userid." SET verdict='1' WHERE pair='".$pair."'";
+        $sql = "Update table_".$userid." SET verdict='1' WHERE pair='".$pair."'";
     }else if (isset($_POST['nodup'])){
-        $sql = "Update se_".$userid." SET verdict='0' WHERE pair='".$pair."'";
+        $sql = "Update table_".$userid." SET verdict='0' WHERE pair='".$pair."'";
+    }else if (isset($_POST['related'])){
+	$sql = "Update table_".$userid." SET verdict='0.75' WHERE pair='".$pair."'";
     }else{ // assume unclear
-	$sql = "Update se_".$userid." SET verdict='0.5' WHERE pair='".$pair."'";
+	$sql = "Update table_".$userid." SET verdict='0.5' WHERE pair='".$pair."'";
     }
 
     // Add verdict to database
     $conn = connect_to_db($subforum);
     if ($conn->query($sql) === TRUE) {
-	header('Location: ./present_transitives.php');        
+	header('Location: ./present_pair.php');        
     }else{
 	echo "Something went wrong when processing the verdict!";
     }
@@ -42,8 +40,8 @@ if($ingelogd != 'ja'){
 function connect_to_db($subforum){
 
     $servername = "localhost";
-    $dbuser = "root";
-    $dbpassword = "";
+    $dbuser = "someuser";
+    $dbpassword = "somepassword";
     $dbname = $subforum;
 
     // Create connection
@@ -70,11 +68,14 @@ function notloggedin(){
                     <title>Not logged in</title>
                 </head>
                 <body>
+		    <div id="logo">
+                        <center><img src="../UoM-logo.jpg" alt="Your logo"/></center>
+                    </div>
 		    <div id="contentsides">
                     <div id="content">
                     <center>
 			I\'m sorry. You have been inactive for too long and have been logged out. <br /><br />
-		        All your answers have been saved. <a href="../index.html">Please log in again to continue.</a>
+		        All your answers have been saved. Please <a href="../index.html">log in</a> again to continue.
                     </center>
                     </div>
 		    </div>
