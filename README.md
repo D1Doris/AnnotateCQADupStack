@@ -28,49 +28,42 @@ For licensing information please see the LICENCE file.
 
 1. Install PHP and MySQL on your server.
 
-2. Install swiftmailer (http://swiftmailer.org/)
-
-3. Set the right user and password for the database in the following files:
-    * createdatabases.cgi
-    * insertrecords.cgi
+2. Set the right user and password for the database in the following files:
+    * create_and_fill_databases.cgi
     * se-annotate/php/catch_answer.php
     * se-annotate/php/createuser.php
-    * se-annotate/php/email_for_forgotten_username.php
-    * se-annotate/php/email_for_reset_password.php
     * se-annotate/php/login.php
-    * se-annotate/php/present_transitives.php
-    * se-annotate/php/reset_password.php
-    * se-annotate/php/verify.php
+    * se-annotate/php/present_pair.php
 
     One day I'll make a configuration file for this, and clean up the repeated code.
 
-4. Download CQADupStack (http://nlp.cis.unimelb.edu.au/resources/cqadupstack/) and make sure the subforum zipfiles end up in a directory called 'cqadupstack'.
+3. Register your application on stackapps.com. You will then receive a Client ID, a Client Secret and a Key. These, plus your server name, need to be added to:
+    * se-annotate/php/login.php
+    * se-annotate/php/authenticate.php
 
-5. Prepare the question pairs you would like to be annotated. For this we need one comma-separated csv file per subforum, located in se-annotate/csv/subforum_annotation_candidates.csv. These files should contain question ids in column A and B, where each row is a question pair.
+4. Download CQADupStack (http://nlp.cis.unimelb.edu.au/resources/cqadupstack/).
+
+5. Prepare the question pairs you would like to be annotated. For this we need one comma-separated csv file per subforum, located in se-annotate/csv/subforum_annotation_candidates.csv. These files should contain question ids in column A and B, where each row is a question pair, and a type in column C, to identify how this pair was chosen. This can be any string you like, with a maximum of 20 characters (unless you change that in create_and_fill_databases.cgi).
 
 6. Change se-annotate/favicon.ico to your own favicon.
 
-7. Add your own email address as contact for problems at the bottom of the following pages:
+7. Change se-annotate/UoM-logo.jpg to your own logo.
+
+8. Add your own email address as contact for problems at the bottom of the following pages:
     * se-annotate/index.html
-    * se-annotate/new_user.html
-    * se-annotate/php/present_transitives.php
+    * se-annotate/infopage.html
+    * se-annotate/php/present_pair.php
 
     I suggest using http://www.closetnoc.org/mungemaster/mungemaster.pl to obfuscate your email address.
 
-8. Change se-annotate/php/analyticstracking.php to your own analyticstracking.php script, or adjust the USERID (see https://www.google.com/analytics/), or delete it and the following line:<br />
+9. Add information on your project to se-annotate/infopage.html
+
+10. Change se-annotate/php/analyticstracking.php to your own analyticstracking.php script, or adjust the USERID (see https://www.google.com/analytics/), or delete it and the following line:<br />
 <?php include_once("./analyticstracking.php") ?> from se-annotate/php/present_transitives.php<br />
 You can also add it to other pages you would like to track, like the login page.<br />
 
-9. In se-annotate/php/createuser.php, in the function send_email():
-    * Insert your email details (in two places). It has to be a gmail address.
-    * Adjust the swiftmailer path.
-    * Change the server name in the email body.
-    * Actually change the rest of the email body too, to suit your own setup.
+11. Run create_and_fill_databases.cgi to create and fill the database with the pairs to be annotated.
 
-    Then do the same in se-annotate/php/email_for_forgotten_username.php and se-annotate/php/email_for_reset_password.php
+12. Test in browser: servername/path/to/se-annotate/
 
-10. Run createdatabases.cgi and then insertrecords.cgi to fill the database with the pairs to be annotated.
-
-11. Test in browser: servername/path/to/se-annotate/
-
-12. Feel free to contact me if you run into problems or if you have suggestions for improvements: doris dot hoogeveen it's a gmail address.
+13. Feel free to contact me if you run into problems or if you have suggestions for improvements: doris dot hoogeveen it's a gmail address.
