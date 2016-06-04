@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<!-- Written by Doris Hoogeveen March 2016 -->
-<!-- Downloaded from https://github.com/D1Doris/AnnotateCQADupStack -->
 <html>
 <head>
 <link href="./se-annotate.css" rel="stylesheet" type="text/css" />
-<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon"/>
+<link rel="icon" href="./favicon.ico" type="image/x-icon"/>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset="UTF-8">
 
 <title>Improving StackExchange - Login</title>
 </head>
 
 <body>
+<div id="logo">
+<center><img src="./UoM-logo.jpg" alt="Your logo"/></center>
+</div>
 <div id="contentsides">
 <div id="content">
-<center><h3>Welcome to the StackExchange Annotation Project of the University of Melbourne!</h3>
-<b>Please log in to start judging potential duplicates.</b><br /><br />
-<form method="POST" action="./php/login.php">
+<div id="infopage">
+    <a href="./infopage.html">More info</a>
+</div>
+<center><h3>Welcome to the StackExchange Annotation Project!</h3>
+Please log in with your StackExchange account to start judging potential duplicates,<br />
+or log in as a demo user first, to have a look around.<br /><br />
+<form method="POST" action="./php/authenticate.php">
 <table class="light">
-	<tr>
-		<td class="right">
-		Username: </td>
-		<td><input type="text" name="username" class="inputfield" />
-		</td>
-	</tr>
+	<!--
 	<tr>
                 <td class="right">
                 Email address: </td>
@@ -35,6 +35,7 @@
 		<td><input type="password" name="password" class="inputfield" />
 		</td>
 	</tr>
+	-->
 	<tr>
 		<td class="right">
                 StackExchange subforum: </td>
@@ -56,15 +57,19 @@
 	</tr>
 	<tr>
 		<td colspan="2"><center>
-		<input type="submit" value="Login" name="submit" class="button" />
+		<input type="submit" value="Login via StackExchange" name="submit" class="loginbutton" />
 		</center>
 		</td>
 	</tr>
+	<tr>
+                <td colspan="2"><center>
+                <input type="submit" value="Login as Demo" name="demo" class="loginbutton" />
+                </center>
+                </td>
+        </tr>
 </table>
 </form>
-<small>If you forgot your password, please <a href="./reset_password.html">click here</a> to reset it.</small><br />
-<small>If you forgot your username, please <a href="./forgot_username.html">click here</a> to retrieve it.</small><br /><br />
-<b>No username yet? Please register <a href="./new_user.html">here</a>.</b><br /><br />
+<br /><br />
 
 <small>If you have any problems with the site, <script language="JavaScript"><!-- 
 RlvihaTOxRUREsdaLpxVD="&#100;&#111;&#114;i&#115;&#46;&#104;o&#111;&#103;&#101;v&#101;&#101;&#110;"

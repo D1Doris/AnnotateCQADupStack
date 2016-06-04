@@ -1,15 +1,16 @@
-/* Written by Doris Hoogeveen March 2016
-Downloaded from https://github.com/D1Doris/AnnotateCQADupStack */
-
 html, body{
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
-	background: #EDF1F2; /* light gray */
+	background: #EDF1F2; /* Lichtgrijs */
 	height: 100%;
 	font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; /* taken from SE */
 }
 
+#logo{
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
 
 #nav{
 	width: 130px;
@@ -17,29 +18,52 @@ html, body{
         margin-right: 2px;
         margin-top: 0px;
         padding: 5px;
-        background-color: #D1E8F0; /* Blue (light) */
+        background-color: #D1E8F0; /* Blauw (licht) */
         border: 2px #000000 solid;
 	text-align: center;
 }
 
+#back {
+        width: 140px;
+        margin-left: auto;
+        margin-right: 2px;
+        margin-top: 0px;
+        padding: 5px;
+        background-color: #D1E8F0; /* Blauw (licht) */
+        border: 2px #000000 solid;
+        text-align: center;
+}
+
+#infopage{
+        width: 80px;
+        margin-left: 2px;
+        margin-right: auto;
+        margin-top: 0px;
+        padding: 5px;
+        background-color: #D1E8F0; /* Blauw (licht) */
+        border: 2px #000000 solid;
+        text-align: center;
+}
+
 #contentsides{
-	margin-top: 80px;
-	background-color: #AFDEED; /* Blue ("dark") */
+	margin-top: 20px;
+	background-color: #AFDEED; /* Blauw ("donker") */
 }
 
 #content{
 	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 80px;
+	margin-top: 20px;
 	padding: 15px;
-	background-color: #AFDEED; /* Blue ("dark") */
+	background-color: #AFDEED; /* Blauw ("donker") */
 	/* border: 2px #000000 solid; */
 }
 
 #content table.light{
-	background-color:#D1E8F0; /* Blue (light) */
+	background-color:#D1E8F0; /* Blauw (licht) */
 	border: 2px solid #000000;
+	padding: 10px;
 }
 
 #content tr.light{
@@ -69,7 +93,7 @@ html, body{
 	margin-right: auto;
 	max-height: none;
 	width: auto;
-	max-width: 650px; /* ugly, but this is also SE's own limit. */
+	max-width: 650px; /* lelijk, maar goed, dit is ook SE's eigen limiet. */
 	font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
 }
 
@@ -78,13 +102,30 @@ html, body{
 }
 
 #content input.button{
-	color: #000000;
-        border-color: #bfbfbf;
-        border-style: outset;
+	width: 22%;
+        padding: 5px;
+        border-radius:5px;
+        border:1px solid #000000;
+        cursor:pointer;
+        font-family: 'Arial';
+        font-size: 95%;
 }
+
 
 #content input.inputfield{
 	background: #EDF1F2;
         color: #1E4957;
         border-color: #000000;
 }
+
+#content input.loginbutton{
+        width: 70%;
+        padding: 5px;
+        border-radius:5px;
+	margin-top:5px;
+        border:1px solid #bfbfbf;
+        cursor:pointer;
+        font-family: 'Arial';
+        font-size: 95%;
+}
+
