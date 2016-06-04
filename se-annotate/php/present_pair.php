@@ -1,9 +1,5 @@
 <?php 
 
-// Written by Doris Hoogeveen March 2016
-// Downloaded from https://github.com/D1Doris/AnnotateCQADupStack
-
-$username=$_COOKIE['se_username']; // Maybe I can leave this out?
 $userid=$_COOKIE['se_userid'];
 $subforum=$_COOKIE['subforum'];
 $ingelogd=$_COOKIE['ingelogd'];
@@ -13,9 +9,12 @@ if($ingelogd != 'ja'){
 }else{
     $conn = connect_to_db($subforum);
 
-    $username=mysqli_real_escape_string($conn, $username);
+    # Find total nr of questions for this subforum
+    $sql = "SELECT * FROM table_".$userid;
+    $result = $conn->query($sql);
+    $totalnrofpairs = $result->num_rows;
 
-    $sql = "SELECT pair FROM se_".$userid." WHERE verdict='noverdict' ORDER BY RAND() LIMIT 1";
+    $sql = "SELECT pair FROM table_".$userid." WHERE verdict='noverdict' ORDER BY RAND() LIMIT 1";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
 	while($row = $result->fetch_assoc()) { // Should be only one result because of the limit set above
@@ -40,8 +39,14 @@ if($ingelogd != 'ja'){
 	    $b2 = set_img_width($b2);
         }
 
+	# Find nr of question pairs that have been annotated.
+	$sql = "SELECT pair FROM table_".$userid." WHERE verdict='noverdict'";
+    	$fullresult = $conn->query($sql);
+	$not_annotated = $fullresult->num_rows;
+	$annotated = $totalnrofpairs - $not_annotated + 1;
+
         # Display chosen pair
-        display_pair($t1, $t2, $b1, $b2, $id1, $id2);
+        display_pair($t1, $t2, $b1, $b2, $id1, $id2, $totalnrofpairs, $annotated, $userid);
 
     }else{
 	print '<!DOCTYPE html>
@@ -53,6 +58,9 @@ if($ingelogd != 'ja'){
                     <title>That\'s all Folks!</title>
                 </head>
                 <body>
+		    <div id="logo">
+                        <center><img src="../UoM-logo.jpg" alt="Your logo"/></center>
+                    </div>
 		    <div id="contentsides">
                     <div id="content">
                     <center>
@@ -64,37 +72,39 @@ if($ingelogd != 'ja'){
 		    </div>
                 </body>
              </html>';
+	if ($userid == '2'){ // This is the demo user
+	    // Reset all demo verdicts to 'noverdict';
+	    $sql = "Update table_demo SET verdict='noverdict'";
+
+    	    if ($conn->query($sql) === TRUE) {
+        	// Reset was successful. Do nothing.
+    	    }else{
+        	echo "Something went wrong when resetting the demo verdicts!";
+    	    }	
+	}
     }
 }
 
 function set_img_width($b){
     $pattern = '/<img [^>]+>/';
-    preg_match($pattern, $b, $matches, PREG_OFFSET_CAPTURE);
-    foreach ($matches as &$patmatch) { // for all images in the post
-	$img = $patmatch[0];
-	$widthpat = '/width=\"([0-9]+)\"/';
-	preg_match($widthpat, $img, $widthmatches, PREG_OFFSET_CAPTURE);
-	if (!empty($widthmatches)) { // max one result because each image only has max 1 width
-	    // Het lijkt erop dat dit nooit voorkomt. Misschien verkleint SE de images al.
-
-	    // check if found width is smaller than 657px.
-	    //print_r($widthmatches);
-	    //print 'Found width:';
-	    //print $widthmatches[0][0]."\n";
-	    if ((int)$widthmatches[0][0] > 657){ // Klopt dit?
-	        $newimg = preg_replace($widthmatches[0][0], 'width="657"', $img);
-	        $b = preg_replace($img, $newimg, $b);
-	    }
-	}else{
-	    // check if true width is smaller than 657px;
-	    $srcpat = '/src=\"([^ ]+)\"/';
-	    preg_match($srcpat, $img, $srcmatches, PREG_OFFSET_CAPTURE);
-	    //print_r($srcmatches);
-	    // Example output based on <img src="http://i.stack.imgur.com/MJFyb.png" alt="Mockup"> :
-	    // Array ( [0] => Array ( [0] => src="http://i.stack.imgur.com/MJFyb.png" [1] => 5 ) [1] => Array ( [0] => http://i.stack.imgur.com/MJFyb.png [1] => 10 ) ) 
-	    $size = getimagesize($srcmatches[1][0]);
-	    if ($size[0] > 657){
-	        $b = preg_replace('/<img /', '<img width="657" ', $b);
+    preg_match_all($pattern, $b, $outerarray, PREG_OFFSET_CAPTURE);
+    foreach ($outerarray as &$matches){ // For some reason there's a useless array in the middle...
+	foreach ($matches as &$patmatch) { // for all images in the post
+	    $img = $patmatch[0];
+	    $widthpat = '/width=\"([0-9]+)\"/';
+	    preg_match($widthpat, $img, $widthmatches, PREG_OFFSET_CAPTURE);
+	    if (!empty($widthmatches)) { // max one result because each image only has max 1 width
+	        // Het lijkt erop dat dit nooit voorkomt. Misschien verkleint SE de images al.
+	        // check if found width is smaller than 657px.
+	        if ((int)$widthmatches[0][0] > 657){ // Klopt dit?
+	            $newimg = preg_replace($widthmatches[0][0], 'width="657"', $img);
+	            $b = preg_replace($img, $newimg, $b);
+	        }
+	    }else{
+	        // check if true width is smaller than 657px;
+	        $newimg = preg_replace('/<img /', '<img style="max-width:657px;width: expression(this.width > 657 ? 657: true);" ', $img);
+	        $newimg = '<br /><center>'.$newimg.'</center><br />';
+	        $b = preg_replace('/'.preg_quote($img, '/').'/', $newimg, $b);
 	    }
 	}
     }
@@ -102,7 +112,7 @@ function set_img_width($b){
 }
 
 
-function display_pair($t1, $t2, $b1, $b2, $id1, $id2){
+function display_pair($t1, $t2, $b1, $b2, $id1, $id2, $totalnrofpairs, $annotated, $userid){
     $actionurl = './catch_answer.php?id1='.$id1.'&id2='.$id2;
 
     print '<!DOCTYPE html>
@@ -134,8 +144,14 @@ function display_pair($t1, $t2, $b1, $b2, $id1, $id2){
             <div id="content">
             <div id="nav">
                 <a href="../index.html">Home</a> | <a href="./logout.php">Log out</a>
-            </div>
-		<center><h3>Would you consider the next two questions to be duplicates?</h3>
+            </div>';
+
+    if ($userid == "demo"){
+	print '<center><h1>THIS IS A DEMO</h1></center>';
+    }
+
+    print '
+		<center><h3>Would you consider the next two questions to be duplicates? ('.$annotated.'/'.$totalnrofpairs.')</h3>
 	    <form method="POST" action="'.$actionurl.'">
         
             <table>
@@ -168,6 +184,7 @@ function display_pair($t1, $t2, $b1, $b2, $id1, $id2){
                     <input type="submit" value="YES" name="dup" class="button" />
                     <input type="submit" value="NO" name="nodup" class="button" />
                     <input type="submit" value="Really can\'t tell" name="unclear" class="button" />
+		    <input type="submit" value="Related, but not duplicates" name="related" class="button" />
                     </center>
                     </td>
                 </tr>
@@ -193,8 +210,8 @@ document.write("<a href=\'mailto:"+RlvihaTOxRUREsdaLpxVD+""+wJANRfeXO+""+XThhXnm
 function connect_to_db($subforum){
 
     $servername = "localhost";
-    $dbuser = "root";
-    $dbpassword = "";
+    $dbuser = "someuser";
+    $dbpassword = "somepassword";
     $dbname = $subforum;
 
     // Create connection
@@ -221,6 +238,9 @@ function notloggedin(){
                     <title>Not logged in</title>
                 </head>
                 <body>
+		    <div id="logo">
+                        <center><img src="../UoM-logo.jpg" alt="Your logo"/></center>
+                    </div>
 		    <div id="contentsides">
                     <div id="content">
                     <center>
